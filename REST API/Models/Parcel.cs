@@ -5,10 +5,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
+/* POST TEMPLATE
+{
+    "parcelNumber": "AA666666AA",
+    "recipientName": "Rene Kristofer Pohlak",
+    "destinationCountry": "EE",
+    "weight": 5.124,
+    "price": 1.42,
+    "bagParcelsId": "1a71162a-4b17-4308-7314-08d89670be82"
+}
+*/
+
 namespace REST_API.Models
 {
     public class Parcel
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; } = default!;
 
         [RegularExpression(@"[A-Za-z]{2}[0-9]{6}[A-Za-z]{2}")]

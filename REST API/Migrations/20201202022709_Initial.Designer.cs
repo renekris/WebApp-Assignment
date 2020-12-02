@@ -10,7 +10,7 @@ using REST_API.Data;
 namespace REST_API.Migrations
 {
     [DbContext(typeof(REST_APIContext))]
-    [Migration("20201202014841_Initial")]
+    [Migration("20201202022709_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
