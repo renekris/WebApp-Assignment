@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Data;
 using REST_API.Models;
 
-
 namespace REST_API.Controllers
 {
-    [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     [ApiController]
     public class ParcelsController : ControllerBase
@@ -26,16 +23,16 @@ namespace REST_API.Controllers
 
         // GET: api/Parcels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Parcel>>> GetShipments()
+        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcel()
         {
-            return await _context.Shipments.ToListAsync();
+            return await _context.Parcel.ToListAsync();
         }
 
         // GET: api/Parcels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Parcel>> GetParcel(int id)
+        public async Task<ActionResult<Parcel>> GetParcel(Guid id)
         {
-            var parcel = await _context.Shipments.FindAsync(id);
+            var parcel = await _context.Parcel.FindAsync(id);
 
             if (parcel == null)
             {
@@ -48,7 +45,7 @@ namespace REST_API.Controllers
         // PUT: api/Parcels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutParcel(int id, Parcel parcel)
+        public async Task<IActionResult> PutParcel(Guid id, Parcel parcel)
         {
             if (id != parcel.Id)
             {
@@ -81,7 +78,7 @@ namespace REST_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Parcel>> PostParcel(Parcel parcel)
         {
-            _context.Shipments.Add(parcel);
+            _context.Parcel.Add(parcel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetParcel", new { id = parcel.Id }, parcel);
@@ -89,23 +86,23 @@ namespace REST_API.Controllers
 
         // DELETE: api/Parcels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteParcel(int id)
+        public async Task<IActionResult> DeleteParcel(Guid id)
         {
-            var parcel = await _context.Shipments.FindAsync(id);
+            var parcel = await _context.Parcel.FindAsync(id);
             if (parcel == null)
             {
                 return NotFound();
             }
 
-            _context.Shipments.Remove(parcel);
+            _context.Parcel.Remove(parcel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ParcelExists(int id)
+        private bool ParcelExists(Guid id)
         {
-            return _context.Shipments.Any(e => e.Id == id);
+            return _context.Parcel.Any(e => e.Id == id);
         }
     }
 }

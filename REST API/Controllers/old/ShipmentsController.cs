@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using REST_API.Models;
 
 namespace REST_API.Controllers
 {
+    [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     [ApiController]
     public class ShipmentsController : ControllerBase
@@ -30,7 +32,7 @@ namespace REST_API.Controllers
 
         // GET: api/Shipments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Shipment>> GetShipment(Guid id)
+        public async Task<ActionResult<Shipment>> GetShipment(int id)
         {
             var shipment = await _context.Shipment.FindAsync(id);
 
@@ -45,7 +47,7 @@ namespace REST_API.Controllers
         // PUT: api/Shipments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
+        public async Task<IActionResult> PutShipment(int id, Shipment shipment)
         {
             if (id != shipment.Id)
             {
@@ -86,7 +88,7 @@ namespace REST_API.Controllers
 
         // DELETE: api/Shipments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteShipment(Guid id)
+        public async Task<IActionResult> DeleteShipment(int id)
         {
             var shipment = await _context.Shipment.FindAsync(id);
             if (shipment == null)
@@ -100,7 +102,7 @@ namespace REST_API.Controllers
             return NoContent();
         }
 
-        private bool ShipmentExists(Guid id)
+        private bool ShipmentExists(int id)
         {
             return _context.Shipment.Any(e => e.Id == id);
         }

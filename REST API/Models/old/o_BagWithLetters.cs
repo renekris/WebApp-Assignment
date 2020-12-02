@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace REST_API.Models
 {
-    public class BagWithLetters
+    public class o_BagWithLetters
     {
 
         public int Id { get; set; }

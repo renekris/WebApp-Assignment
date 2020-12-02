@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,39 +8,23 @@ namespace REST_API.Models
 {
     public class Shipment
     {
-        public enum AirportType
-        { 
-            TLL,
-            RIX,
-            HEL 
-        }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
-        [StringLength(10)]
         [RegularExpression(@"[A-Za-z0-9]{3}-[A-Za-z0-9]{6}")]
-        public string ShipmentNumber { get; set; }
+        public string ShipmentNumber { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
-        public AirportType Airport { get; set; }
+        public enum AirportType { TLL, RIX, HEL }
+        public AirportType? Airport { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
         [StringLength(6)]
         [RegularExpression(@"[A-Za-z]{2}[0-9]{4}")]
-        public string FlightNumber { get; set; }
+        public string FlightNumber { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.DateTime)]
-        public DateTime FlightDate { get; set; }
+        public DateTime FlightDate { get; set; } = default!;
 
-        public ICollection<Bags> ListOfBags { get; set; }
 
-    }
-
-    public class Bags
-    {
-        public int Id { get; set; }
-        public string ListOfBags { get; set; }
+        public ICollection<ShipmentBags>? ListBags { get; set; }
     }
 }

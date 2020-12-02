@@ -1,32 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace REST_API.Models
 {
     public class Parcel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
-        [StringLength(10, MinimumLength = 10)]
         [RegularExpression(@"[A-Za-z]{2}[0-9]{6}[A-Za-z]{2}")]
-        public string ParcelNumber { get; set; }
+        public string ParcelNumber { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
         [StringLength(100)]
-        public string RecipientName { get; set; }
+        public string RecipientName { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
-        [StringLength(2, MinimumLength = 2)]
-        public string DestinationCountry { get; set; }
+        [RegularExpression(@"[A-Z]{2}")]
+        public string DestinationCountry { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
         [Column(TypeName = "decimal(18,3)")]
-        public decimal Weight { get; set; }
+        public decimal Weight { get; set; } = default!;
 
-        [Required(ErrorMessage = "{0} is required")]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = default!;
+
+
+        [ForeignKey(nameof(BagParcels))]
+        public Guid BagParcelsId { get; set; } = default!;
+        public BagParcels? BagParcels { get; set; }
     }
 }

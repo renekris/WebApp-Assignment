@@ -12,47 +12,47 @@ namespace REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShipmentsController : ControllerBase
+    public class ShipmentBagsController : ControllerBase
     {
         private readonly REST_APIContext _context;
 
-        public ShipmentsController(REST_APIContext context)
+        public ShipmentBagsController(REST_APIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Shipments
+        // GET: api/ShipmentBags
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipment()
+        public async Task<ActionResult<IEnumerable<ShipmentBags>>> GetShipmentBags()
         {
-            return await _context.Shipment.ToListAsync();
+            return await _context.ShipmentBags.ToListAsync();
         }
 
-        // GET: api/Shipments/5
+        // GET: api/ShipmentBags/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Shipment>> GetShipment(Guid id)
+        public async Task<ActionResult<ShipmentBags>> GetShipmentBags(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
+            var shipmentBags = await _context.ShipmentBags.FindAsync(id);
 
-            if (shipment == null)
+            if (shipmentBags == null)
             {
                 return NotFound();
             }
 
-            return shipment;
+            return shipmentBags;
         }
 
-        // PUT: api/Shipments/5
+        // PUT: api/ShipmentBags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
+        public async Task<IActionResult> PutShipmentBags(Guid id, ShipmentBags shipmentBags)
         {
-            if (id != shipment.Id)
+            if (id != shipmentBags.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(shipment).State = EntityState.Modified;
+            _context.Entry(shipmentBags).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace REST_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ShipmentExists(id))
+                if (!ShipmentBagsExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace REST_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Shipments
+        // POST: api/ShipmentBags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Shipment>> PostShipment(Shipment shipment)
+        public async Task<ActionResult<ShipmentBags>> PostShipmentBags(ShipmentBags shipmentBags)
         {
-            _context.Shipment.Add(shipment);
+            _context.ShipmentBags.Add(shipmentBags);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
+            return CreatedAtAction("GetShipmentBags", new { id = shipmentBags.Id }, shipmentBags);
         }
 
-        // DELETE: api/Shipments/5
+        // DELETE: api/ShipmentBags/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteShipment(Guid id)
+        public async Task<IActionResult> DeleteShipmentBags(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
-            if (shipment == null)
+            var shipmentBags = await _context.ShipmentBags.FindAsync(id);
+            if (shipmentBags == null)
             {
                 return NotFound();
             }
 
-            _context.Shipment.Remove(shipment);
+            _context.ShipmentBags.Remove(shipmentBags);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ShipmentExists(Guid id)
+        private bool ShipmentBagsExists(Guid id)
         {
-            return _context.Shipment.Any(e => e.Id == id);
+            return _context.ShipmentBags.Any(e => e.Id == id);
         }
     }
 }

@@ -12,47 +12,47 @@ namespace REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShipmentsController : ControllerBase
+    public class BagLettersController : ControllerBase
     {
         private readonly REST_APIContext _context;
 
-        public ShipmentsController(REST_APIContext context)
+        public BagLettersController(REST_APIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Shipments
+        // GET: api/BagLetters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipment()
+        public async Task<ActionResult<IEnumerable<BagLetters>>> GetBagLetters()
         {
-            return await _context.Shipment.ToListAsync();
+            return await _context.BagLetters.ToListAsync();
         }
 
-        // GET: api/Shipments/5
+        // GET: api/BagLetters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Shipment>> GetShipment(Guid id)
+        public async Task<ActionResult<BagLetters>> GetBagLetters(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
+            var bagLetters = await _context.BagLetters.FindAsync(id);
 
-            if (shipment == null)
+            if (bagLetters == null)
             {
                 return NotFound();
             }
 
-            return shipment;
+            return bagLetters;
         }
 
-        // PUT: api/Shipments/5
+        // PUT: api/BagLetters/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
+        public async Task<IActionResult> PutBagLetters(Guid id, BagLetters bagLetters)
         {
-            if (id != shipment.Id)
+            if (id != bagLetters.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(shipment).State = EntityState.Modified;
+            _context.Entry(bagLetters).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace REST_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ShipmentExists(id))
+                if (!BagLettersExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace REST_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Shipments
+        // POST: api/BagLetters
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Shipment>> PostShipment(Shipment shipment)
+        public async Task<ActionResult<BagLetters>> PostBagLetters(BagLetters bagLetters)
         {
-            _context.Shipment.Add(shipment);
+            _context.BagLetters.Add(bagLetters);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
+            return CreatedAtAction("GetBagLetters", new { id = bagLetters.Id }, bagLetters);
         }
 
-        // DELETE: api/Shipments/5
+        // DELETE: api/BagLetters/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteShipment(Guid id)
+        public async Task<IActionResult> DeleteBagLetters(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
-            if (shipment == null)
+            var bagLetters = await _context.BagLetters.FindAsync(id);
+            if (bagLetters == null)
             {
                 return NotFound();
             }
 
-            _context.Shipment.Remove(shipment);
+            _context.BagLetters.Remove(bagLetters);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ShipmentExists(Guid id)
+        private bool BagLettersExists(Guid id)
         {
-            return _context.Shipment.Any(e => e.Id == id);
+            return _context.BagLetters.Any(e => e.Id == id);
         }
     }
 }

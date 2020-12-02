@@ -14,12 +14,14 @@ namespace REST_API.Data
         {
         }
 
-        public DbSet<Parcel> Shipments { get; set; }
+        public DbSet<REST_API.Models.Shipment> Shipment { get; set; } = null!;
 
-        public DbSet<REST_API.Models.BagWithLetters> BagWithLetters { get; set; }
+        public DbSet<REST_API.Models.ShipmentBags> ShipmentBags { get; set; } = null!;
 
-        public DbSet<REST_API.Models.BagWithParcels> BagWithParcels { get; set; }
+        public DbSet<REST_API.Models.BagLetters> BagLetters { get; set; } = null!;
 
-        public DbSet<REST_API.Models.Shipment> Shipment { get; set; }
+        public DbSet<REST_API.Models.BagParcels> BagParcels { get; set; } = null!;
+
+        public DbSet<REST_API.Models.Parcel> Parcel { get; set; } = null!;
     }
 }

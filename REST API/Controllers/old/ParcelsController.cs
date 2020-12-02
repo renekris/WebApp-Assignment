@@ -2,57 +2,60 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST_API.Data;
 using REST_API.Models;
 
+
 namespace REST_API.Controllers
 {
+    [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ShipmentsController : ControllerBase
+    public class ParcelsController : ControllerBase
     {
         private readonly REST_APIContext _context;
 
-        public ShipmentsController(REST_APIContext context)
+        public ParcelsController(REST_APIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Shipments
+        // GET: api/Parcels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipment()
+        public async Task<ActionResult<IEnumerable<Parcel>>> GetShipments()
         {
-            return await _context.Shipment.ToListAsync();
+            return await _context.Shipments.ToListAsync();
         }
 
-        // GET: api/Shipments/5
+        // GET: api/Parcels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Shipment>> GetShipment(Guid id)
+        public async Task<ActionResult<Parcel>> GetParcel(int id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
+            var parcel = await _context.Shipments.FindAsync(id);
 
-            if (shipment == null)
+            if (parcel == null)
             {
                 return NotFound();
             }
 
-            return shipment;
+            return parcel;
         }
 
-        // PUT: api/Shipments/5
+        // PUT: api/Parcels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
+        public async Task<IActionResult> PutParcel(int id, Parcel parcel)
         {
-            if (id != shipment.Id)
+            if (id != parcel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(shipment).State = EntityState.Modified;
+            _context.Entry(parcel).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +63,7 @@ namespace REST_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ShipmentExists(id))
+                if (!ParcelExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +76,36 @@ namespace REST_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Shipments
+        // POST: api/Parcels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Shipment>> PostShipment(Shipment shipment)
+        public async Task<ActionResult<Parcel>> PostParcel(Parcel parcel)
         {
-            _context.Shipment.Add(shipment);
+            _context.Shipments.Add(parcel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
+            return CreatedAtAction("GetParcel", new { id = parcel.Id }, parcel);
         }
 
-        // DELETE: api/Shipments/5
+        // DELETE: api/Parcels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteShipment(Guid id)
+        public async Task<IActionResult> DeleteParcel(int id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
-            if (shipment == null)
+            var parcel = await _context.Shipments.FindAsync(id);
+            if (parcel == null)
             {
                 return NotFound();
             }
 
-            _context.Shipment.Remove(shipment);
+            _context.Shipments.Remove(parcel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ShipmentExists(Guid id)
+        private bool ParcelExists(int id)
         {
-            return _context.Shipment.Any(e => e.Id == id);
+            return _context.Shipments.Any(e => e.Id == id);
         }
     }
 }
