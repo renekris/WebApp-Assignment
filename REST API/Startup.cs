@@ -42,6 +42,7 @@ namespace REST_API
 
             services.AddDbContext<REST_APIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("REST_APIContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

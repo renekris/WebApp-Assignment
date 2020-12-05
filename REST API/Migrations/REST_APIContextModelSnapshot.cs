@@ -111,8 +111,9 @@ namespace REST_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Airport")
-                        .HasColumnType("int");
+                    b.Property<string>("Airport")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FlightDate")
                         .HasColumnType("datetime2");

@@ -10,8 +10,8 @@ using REST_API.Data;
 namespace REST_API.Migrations
 {
     [DbContext(typeof(REST_APIContext))]
-    [Migration("20201203002856_cors-fix")]
-    partial class corsfix
+    [Migration("20201203075347_Airport-enum-fix")]
+    partial class Airportenumfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,8 +113,9 @@ namespace REST_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Airport")
-                        .HasColumnType("int");
+                    b.Property<string>("Airport")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FlightDate")
                         .HasColumnType("datetime2");

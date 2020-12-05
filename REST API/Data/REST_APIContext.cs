@@ -18,9 +18,9 @@ namespace REST_API.Data
 
         public DbSet<REST_API.Models.ShipmentBags> ShipmentBags { get; set; } = null!;
 
-        public DbSet<REST_API.Models.BagLetters> BagLetters { get; set; } = null!;
-
         public DbSet<REST_API.Models.BagParcels> BagParcels { get; set; } = null!;
+
+        public DbSet<REST_API.Models.BagLetters> BagLetters { get; set; } = null!;
 
         public DbSet<REST_API.Models.Parcel> Parcel { get; set; } = null!;
     }
