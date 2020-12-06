@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,23 @@ namespace REST_API.Migrations
             }
 
             return shipment;
+        }
+
+
+        // GET: api/Shipments/5/details
+        [HttpGet("{id}/details")]
+        public async Task<ActionResult<Shipment>> GetShipmentDetails(Guid id)
+        {
+            var shipment = await _context.Shipment
+                .Include(m => m.ListBags)
+                    .ThenInclude(o => o.ListBagPar)
+                        .ThenInclude(v => v.ListParcels)
+                .Include(s => s.ListBags)
+                    .ThenInclude(d => d.ListBagLet)
+                .Where(s => s.Id == id)
+                .ToListAsync();
+
+            return Ok(shipment);
         }
 
         // PUT: api/Shipments/5
