@@ -1,3 +1,2 @@
 # WebApp-Assignment-Backend
-![EER Diagram]("EER Diagram.png")
-Format: ![Alt Text](url)
+![EER Diagram](https://imgur.com/a/wM2pOmP)
